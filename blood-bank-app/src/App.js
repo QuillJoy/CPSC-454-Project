@@ -8,13 +8,25 @@ import DonorSignUp from './comp/donor-sign-up/DonorSignUp';
 import DonorHome from './comp/donor-home/DonorHome';
 import EmployeeHome from './comp/employee-home/EmployeeHome';
 import DonorAppointment from './comp/donor-appointment/DonorAppointment';
+import { Link, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
+      <Routes>
+        <Route path="/" element={<WelcomeWithAppBar />} />
+        <Route path="/donorsignin" element={<DonorSignInSide/>} />
+        <Route path="/donorsignup" element={<DonorSignUp />} />
+        <Route path="/employeesignin" element={<EmployeeSignIn />} />
+      </Routes>
+  );
+}
+
+function WelcomeWithAppBar() {
+  return (
+    <>
       <AppBar />
-      <DonorSignUp />
-    </div>
+      <Welcome />
+    </>
   );
 }
 
