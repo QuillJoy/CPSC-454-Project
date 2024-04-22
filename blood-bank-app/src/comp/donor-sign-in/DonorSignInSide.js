@@ -99,6 +99,7 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={formState.emailAddr}
               onChange={ e => setFormState({...formState, emailAddr: e.target.value})}
             />
             <TextField
@@ -110,6 +111,7 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={formState.password}
               onChange={ e => setFormState({...formState, password: e.target.value})}
             />
             <FormControlLabel
