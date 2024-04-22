@@ -14,20 +14,14 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function SignInSide() {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [formState, setFormState] = React.useState({
+    emailAddr: '',
+    password: '',
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    setUsername('');
-    setPassword('');
-    console.log("Username after reset", username)
-    console.log("Password after reset", password)
   };
 
   return (
@@ -75,7 +69,7 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={ e => setFormState({...formState, emailAddr: e.target.value})}
             />
             <TextField
               margin="normal"
@@ -86,7 +80,7 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={ e => setFormState({...formState, password: e.target.value})}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
