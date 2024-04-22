@@ -12,8 +12,12 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignInSide() {
+  const navigate = useNavigate()
+
+
   const [formState, setFormState] = React.useState({
     emailAddr: '',
     password: '',
@@ -21,6 +25,32 @@ export default function SignInSide() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+  // Check if email address exists in localStorage
+    const storedEmailAddr = sessionStorage.getItem("emailAddr");
+
+    if (storedEmailAddr === formState.emailAddr) {
+      // Email address exists, now check password
+      const storedPassword = sessionStorage.getItem("password");
+      const enteredPassword = formState.password;
+
+      if (storedPassword && storedPassword === enteredPassword) {
+        // Password matches, set isAuthenticated to true
+        let isAuthenticated = true;
+        sessionStorage.setItem("isAuthenticated", isAuthenticated);
+        navigate ('/donorhome')
+      }
+      else {
+        alert("Incorrect password")
+        navigate ('/')
+
+      }
+    } else {
+      alert("Email not found")
+      navigate ('/')
+    }
+
+    
     const data = new FormData(event.currentTarget);
   };
 
