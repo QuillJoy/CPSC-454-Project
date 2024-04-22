@@ -11,30 +11,47 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-
 export default function EmployeeSignIn() {
+  const navigate = useNavigate();
+  const [formState, setFormState] = React.useState({
+    emailAddr: '',
+    password: '',
+  });
+
+  const theme = createTheme();
   const handleSubmit = (event) => {
     event.preventDefault();
+
+  // Check if email address exists in localStorage
+    const storedEmailAddr = sessionStorage.getItem("employeeEmail");
+
+    if (storedEmailAddr === formState.emailAddr) {
+      // Email address exists, now check password
+      const storedPassword = sessionStorage.getItem("employeePassword");
+      const enteredPassword = formState.password;
+
+      if (storedPassword && storedPassword === enteredPassword) {
+        // Password matches, set isAuthenticated to true
+        let isAuthenticated = true;
+        sessionStorage.setItem("isAuthenticated", isAuthenticated);
+
+        navigate ('/employeehome')
+      }
+      else {
+        alert("Incorrect password")
+        navigate ('/')
+
+      }
+    } else {
+      alert("Email not found")
+      navigate ('/')
+    }
+
+    
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
 
   return (
@@ -63,6 +80,8 @@ export default function EmployeeSignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            value={formState.emailAddr}
+            onChange={ e => setFormState({...formState, emailAddr: e.target.value})}
             autoFocus
           />
           <TextField
@@ -73,6 +92,8 @@ export default function EmployeeSignIn() {
             label="Password"
             type="password"
             id="password"
+            value={formState.password}
+            onChange={ e => setFormState({...formState, password: e.target.value})}
             autoComplete="current-password"
           />
           <FormControlLabel
@@ -96,7 +117,6 @@ export default function EmployeeSignIn() {
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 }
