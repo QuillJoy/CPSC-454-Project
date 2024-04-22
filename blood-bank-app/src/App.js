@@ -17,6 +17,9 @@ function App() {
         <Route path="/donorsignin" element={<DonorSignInSide/>} />
         <Route path="/donorsignup" element={<DonorSignUp />} />
         <Route path="/employeesignin" element={<EmployeeSignIn />} />
+        <Route path="/donorhome" element={<DonorHomeWithAppBar />} />
+        <Route path="/employeehome" element={<EmployeeHomeWithAppBar />} />
+
       </Routes>
   );
 }
@@ -29,5 +32,24 @@ function WelcomeWithAppBar() {
     </>
   );
 }
+
+function EmployeeHomeWithAppBar() {
+  return (
+    <>
+      <AppBar />
+      <EmployeeHome />
+    </>
+  );
+}
+
+function DonorHomeWithAppBar() {
+  return (
+    <>
+      <AppBar />
+      <DonorHome />
+    </>
+  );
+}
+
 
 export default App;
