@@ -59,6 +59,7 @@ export default function DonorSignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                value={formState.firstName}
                 onChange={ e => setFormState({...formState, firstName: e.target.value})}
                 autoFocus
               />
@@ -71,6 +72,7 @@ export default function DonorSignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
+                value={formState.lastName}
                 onChange={ e => setFormState({...formState, lastName: e.target.value})}
               />
             </Grid>
@@ -81,6 +83,7 @@ export default function DonorSignUp() {
                 id="dob"
                 label="Date of Birth"
                 name="Date of Birth"
+                value={formState.DOB}
                 onChange={ e => setFormState({...formState, DOB: e.target.value})}
               />
             </Grid>
@@ -91,6 +94,7 @@ export default function DonorSignUp() {
                 id="sex"
                 label="Sex"
                 name="Sex"
+                value={formState.sex}
                 onChange={ e => setFormState({...formState, sex: e.target.value})}
               />
             </Grid>
@@ -101,6 +105,7 @@ export default function DonorSignUp() {
                 id="btype"
                 label="Blood Type"
                 name="Blood Type"
+                value={formState.bloodType}
                 onChange={ e => setFormState({...formState, bloodType: e.target.value})}
               />
             </Grid>
@@ -111,6 +116,7 @@ export default function DonorSignUp() {
                 id="pnum"
                 label="Phone Number"
                 name="Phone Number"
+                value={formState.phoneNum}
                 onChange={ e => setFormState({...formState, phoneNum: e.target.value})}
               />
             </Grid>
@@ -122,6 +128,7 @@ export default function DonorSignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={formState.emailAddr}
                 onChange={ e => setFormState({...formState, emailAddr: e.target.value})}
               />
             </Grid>
