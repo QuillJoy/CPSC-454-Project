@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -25,11 +27,25 @@ export default function DonorSignUp() {
     password: ''
   });
 
+  const navigate = useNavigate()
+
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(formState)
     console.log(formState)
     const data = new FormData(event.currentTarget);
+
+    // TODO: replace 
+    sessionStorage.setItem("firstName", formState.firstName)
+    sessionStorage.setItem("lastName", formState.lastName)
+    sessionStorage.setItem("DOB", formState.DOB)
+    sessionStorage.setItem("sex", formState.sex)
+    sessionStorage.setItem("bloodType", formState.bloodType)
+    sessionStorage.setItem("phoneNum", formState.phoneNum)
+    sessionStorage.setItem("emailAddr", formState.emailAddr)
+    sessionStorage.setItem("password", formState.password)
+
+    navigate ('/')
   };
 
   return (
