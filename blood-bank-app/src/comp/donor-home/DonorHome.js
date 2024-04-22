@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Container, Typography, Button, Grid, Box} from "@mui/material";
+import { Link } from 'react-router-dom';
 
 
 function DonorHome() {
@@ -13,7 +14,7 @@ function DonorHome() {
             </Typography>
             <Grid container spacing={2} justifyContent={"center"} display={'flex'} direction={'column'} >
                 <Grid item>
-                    <Button variant='contained' color='primary'>Schedule Appointment</Button>
+                    <Button variant='contained' color='primary'  component={Link} to="/donorappointment">Schedule Appointment</Button>
                 </Grid>
                 <Grid item>
                     <Button variant='contained' color='primary'>See Existing Appointments</Button>
