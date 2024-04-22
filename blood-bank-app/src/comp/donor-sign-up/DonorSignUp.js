@@ -14,13 +14,22 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function DonorSignUp() {
+  const [formState, setFormState] = React.useState({
+    firstName: '',
+    lastName: '',
+    DOB: '',
+    sex: '',
+    bloodType: '',
+    phoneNum: '',
+    emailAddr: '',
+    password: ''
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    alert(formState)
+    console.log(formState)
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
 
   return (
@@ -50,6 +59,7 @@ export default function DonorSignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                onChange={ e => setFormState({...formState, firstName: e.target.value})}
                 autoFocus
               />
             </Grid>
@@ -61,6 +71,7 @@ export default function DonorSignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
+                onChange={ e => setFormState({...formState, lastName: e.target.value})}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -70,6 +81,7 @@ export default function DonorSignUp() {
                 id="dob"
                 label="Date of Birth"
                 name="Date of Birth"
+                onChange={ e => setFormState({...formState, DOB: e.target.value})}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -79,6 +91,7 @@ export default function DonorSignUp() {
                 id="sex"
                 label="Sex"
                 name="Sex"
+                onChange={ e => setFormState({...formState, sex: e.target.value})}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -88,6 +101,7 @@ export default function DonorSignUp() {
                 id="btype"
                 label="Blood Type"
                 name="Blood Type"
+                onChange={ e => setFormState({...formState, bloodType: e.target.value})}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -97,6 +111,7 @@ export default function DonorSignUp() {
                 id="pnum"
                 label="Phone Number"
                 name="Phone Number"
+                onChange={ e => setFormState({...formState, phoneNum: e.target.value})}
               />
             </Grid>
             <Grid item xs={12}>
@@ -107,6 +122,7 @@ export default function DonorSignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={ e => setFormState({...formState, emailAddr: e.target.value})}
               />
             </Grid>
             <Grid item xs={12}>
@@ -118,6 +134,7 @@ export default function DonorSignUp() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                onChange={ e => setFormState({...formState, password: e.target.value})}
               />
             </Grid>
           </Grid>
