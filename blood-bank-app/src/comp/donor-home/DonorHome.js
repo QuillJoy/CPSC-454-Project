@@ -9,7 +9,7 @@ function DonorHome() {
             variant='h2' 
             sx={{my: 5, textAlign: "center", color: "primary.main"}} 
             > 
-            Hello 'User'
+            Hello {sessionStorage.getItem("emailAddr")}
             </Typography>
             <Grid container spacing={2} justifyContent={"center"} display={'flex'} direction={'column'} >
                 <Grid item>
