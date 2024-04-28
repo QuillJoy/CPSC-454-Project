@@ -2,11 +2,11 @@ const mysql = require('mysql');
 
 function connectToDatabase() {
     const connection = mysql.createConnection({
-        host: '192.168.1.4', // replace with the IP address of your VM
+        host: '192.168.1.4',
         port: '3306',
-        user: 'MSI.lan', // replace with your MySQL username
-        password: 'p1', // replace with your MySQL password
-        database: 'bb_db' // replace with your database name
+        user: 'MSI.lan', 
+        password: 'p1', 
+        database: 'bb_db'
     });
 
     connection.connect(error => {

@@ -13,7 +13,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function DonorSignUp() {
   const [formState, setFormState] = React.useState({
@@ -29,23 +28,50 @@ export default function DonorSignUp() {
 
   const navigate = useNavigate()
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert(formState)
-    console.log(formState)
-    const data = new FormData(event.currentTarget);
-
-    // TODO: replace 
-    sessionStorage.setItem("firstName", formState.firstName)
-    sessionStorage.setItem("lastName", formState.lastName)
-    sessionStorage.setItem("DOB", formState.DOB)
-    sessionStorage.setItem("sex", formState.sex)
-    sessionStorage.setItem("bloodType", formState.bloodType)
-    sessionStorage.setItem("phoneNum", formState.phoneNum)
-    sessionStorage.setItem("emailAddr", formState.emailAddr)
-    sessionStorage.setItem("password", formState.password)
-
-    navigate ('/')
+      const { 
+      emailAddr, 
+      password, 
+      firstName, 
+      lastName, 
+      DOB, 
+      sex, 
+      bloodType, 
+      phoneNum 
+    } = formState;
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/insertDonor', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          emailAddr, 
+          password, 
+          firstName, 
+          lastName, 
+          DOB, 
+          sex, 
+          bloodType, 
+          phoneNum, 
+          emailAddr 
+        })
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert(data.message);
+        navigate('/donorhome');
+      } else {
+        alert(data.message);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Error sending the insert request', error);
+    }
   };
 
   return (

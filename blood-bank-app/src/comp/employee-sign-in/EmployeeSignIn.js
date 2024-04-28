@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeContext } from '../../ThemeContext';
 
 export default function EmployeeSignIn() {
   const navigate = useNavigate();
@@ -20,38 +21,43 @@ export default function EmployeeSignIn() {
     emailAddr: '',
     password: '',
   });
+  
+  const { currentUser, setUser, isAuthenticated, setAuth } = React.useContext(ThemeContext);
 
   const theme = createTheme();
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+  
+    const { emailAddr, password } = formState;
+  
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/authenticateEmployee', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: emailAddr, password })
+      });
 
-  // Check if email address exists in localStorage
-    const storedEmailAddr = sessionStorage.getItem("employeeEmail");
-
-    if (storedEmailAddr === formState.emailAddr) {
-      // Email address exists, now check password
-      const storedPassword = sessionStorage.getItem("employeePassword");
-      const enteredPassword = formState.password;
-
-      if (storedPassword && storedPassword === enteredPassword) {
-        // Password matches, set isAuthenticated to true
-        let isAuthenticated = true;
-        sessionStorage.setItem("isAuthenticated", isAuthenticated);
-
-        navigate ('/employeehome')
+      if (!response.ok) {
+        console.error('Server responded with status', response.status);
+        return;
       }
-      else {
-        alert("Incorrect password")
-        navigate ('/')
-
+  
+      const data = await response.json();
+  
+      if (data.isAuthenticated) {
+        setAuth(true)
+        setUser(data.email)
+        navigate('/employeehome');
+      } else {
+        alert(data.message);
+        navigate('/');
       }
-    } else {
-      alert("Email not found")
-      navigate ('/')
+    } catch (error) {
+      console.error('Error sending the authentication request', error);
     }
-
-    
-    const data = new FormData(event.currentTarget);
   };
 
   return (
@@ -108,15 +114,9 @@ export default function EmployeeSignIn() {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>
   );
 }
+

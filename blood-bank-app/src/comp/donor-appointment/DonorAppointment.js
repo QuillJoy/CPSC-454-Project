@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Container, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
+import { ThemeContext } from '../../ThemeContext';
 
 export default function DonorAppointment() {
   const [formState, setFormState] = React.useState({
@@ -20,6 +21,43 @@ export default function DonorAppointment() {
     console.log(formState)
     const data = new FormData(event.currentTarget);
   };
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const { month, day, year } = formState;
+  
+  //   try {
+  //     const response = await fetch('http://localhost:5000/api/insertAppointment', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({ 
+  //         emailAddr, 
+  //         password, 
+  //         firstName, 
+  //         lastName, 
+  //         DOB, 
+  //         sex, 
+  //         bloodType, 
+  //         phoneNum, 
+  //         emailAddr 
+  //       })
+  //     });
+  
+  //     const data = await response.json();
+  
+  //     if (response.ok) {
+  //       alert(data.message);
+  //       navigate('/donorhome');
+  //     } else {
+  //       alert(data.message);
+  //       navigate('/');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error sending the insert request', error);
+  //   }
+  // };
 
   return (
     <Container maxWidth="xs" sx={{my:5}}>

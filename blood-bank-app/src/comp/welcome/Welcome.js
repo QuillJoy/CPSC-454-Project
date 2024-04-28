@@ -19,7 +19,6 @@ function Welcome() {
         .then(data => {
           // Update state with the data received from the server
           setData(data);
-          console.log(data)
         })
         .catch(error => {
           // Handle errors
