@@ -11,12 +11,15 @@ import DonorAppointment from './comp/donor-appointment/DonorAppointment';
 import PrivateRoute from './comp/private-route/PrivateRoute';
 import { Link, Route, Routes } from 'react-router-dom';
 
+
 //TODO: Replace later
 sessionStorage.setItem("isAuthenticated", false);
 sessionStorage.setItem("employeeEmail", "employee@example.com")
 sessionStorage.setItem("employeePassword", "E12345")
 
+
 function App() {
+
   return (
     <Routes>
       <Route path="/" element={<WelcomeWithAppBar />} />
