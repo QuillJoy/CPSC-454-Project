@@ -20,6 +20,25 @@ app.get('/api/data', (req, res) => {
     });
 });
 
+app.get('/api/getID', (req, res) => {
+    const sqlQuery = `SELECT DonorID FROM Donors where Email = ?`;
+    const email = req.query.email
+
+    db.query(sqlQuery, email, (error, results) => {
+        if (error) {
+            console.error('Error executing query: ', error);
+            res.status(500).send('Error executing query');
+            return;
+        }
+
+        if (results.length > 0) {
+            res.json(results[0].DonorID);
+        } else {
+            res.status(404).send('No donor found with this email');
+        }
+    });
+});
+
 app.post('/api/insertDonor', (req, res) => {
     const { 
         emailAddr, 
@@ -39,6 +58,26 @@ app.post('/api/insertDonor', (req, res) => {
     `;
 
     db.query(sqlQuery, [emailAddr, password, firstName, lastName, DOB, sex, bloodType, phoneNum], (error, results) => {
+        if (error) {
+            console.error('Error executing query: ', error);
+            res.status(500).send('Error executing query');
+            return;
+        }
+        res.json({ message: 'Data inserted successfully' });
+    });
+
+});
+
+app.post('/api/insertAppointment', (req, res) => {
+    const { DonorID, month, day, year } = req.body;
+
+    const sqlQuery = `
+        INSERT INTO Appointments 
+        (FDonorID, month, day, year) 
+        VALUES (?, ?, ?, ?)
+    `;
+
+    db.query(sqlQuery, [DonorID, month, day, year], (error, results) => {
         if (error) {
             console.error('Error executing query: ', error);
             res.status(500).send('Error executing query');

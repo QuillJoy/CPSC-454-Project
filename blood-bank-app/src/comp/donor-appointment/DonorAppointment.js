@@ -7,6 +7,7 @@ import Select from '@mui/material/Select';
 import { Container, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import { ThemeContext } from '../../ThemeContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function DonorAppointment() {
   const [formState, setFormState] = React.useState({
@@ -15,49 +16,66 @@ export default function DonorAppointment() {
     year: '',
   });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(formState)
-    console.log(formState)
-    const data = new FormData(event.currentTarget);
-  };
+  const { currentUser } = React.useContext(ThemeContext)
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const { month, day, year } = formState;
+  const navigate = useNavigate()
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { month, day, year } = formState;
+    let donorID = null;
+
+    try {
+      const email = currentUser;
+      console.log(email);
+      const response = await fetch(`http://localhost:5000/api/getID?email=${encodeURIComponent(email)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    
+      if (response.ok) {
+        const data = await response.json();
+        donorID = data;
+        console.log('DonorID:', data); 
+      } else {
+        console.error('Response:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/insertAppointment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          month, 
+          day, 
+          year,
+          donorID
+        })
+      });
   
-  //   try {
-  //     const response = await fetch('http://localhost:5000/api/insertAppointment', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({ 
-  //         emailAddr, 
-  //         password, 
-  //         firstName, 
-  //         lastName, 
-  //         DOB, 
-  //         sex, 
-  //         bloodType, 
-  //         phoneNum, 
-  //         emailAddr 
-  //       })
-  //     });
+      const data = await response.json();
   
-  //     const data = await response.json();
-  
-  //     if (response.ok) {
-  //       alert(data.message);
-  //       navigate('/donorhome');
-  //     } else {
-  //       alert(data.message);
-  //       navigate('/');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error sending the insert request', error);
-  //   }
-  // };
+      if (response.ok) {
+        alert(data.message);
+        navigate('/donorhome');
+      } else {
+        alert(data.message);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Error sending the insert request', error);
+    }
+
+
+  };
 
   return (
     <Container maxWidth="xs" sx={{my:5}}>
