@@ -17,7 +17,8 @@ CREATE TABLE Donors (
 CREATE TABLE Appointments (
     -> Day int,
     -> Month int,
-    -> Year int
+    -> Year int,
+    -> FDonorID varchar(255)
     -> );
 
 CREATE TABLE Employees (

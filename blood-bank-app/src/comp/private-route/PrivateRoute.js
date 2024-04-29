@@ -1,25 +1,11 @@
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ThemeContext } from "../../ThemeContext";
+import { useContext } from "react";
 
 const PrivateRoute = ({ Component }) => {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const storedIsAuthenticated = sessionStorage.getItem("isAuthenticated");
-    return storedIsAuthenticated ? JSON.parse(storedIsAuthenticated) : false;
-  });
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const storedIsAuthenticated = sessionStorage.getItem("isAuthenticated");
-      setIsAuthenticated(storedIsAuthenticated ? JSON.parse(storedIsAuthenticated) : false);
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []); 
+  const { isAuthenticated } = useContext(ThemeContext)
 
     return isAuthenticated ? <Component /> : <Navigate to="/" />;
 };

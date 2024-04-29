@@ -1,9 +1,30 @@
 import * as React from 'react';
 import { Container, Typography, Button, Grid, Box} from "@mui/material";
 import { Link } from 'react-router-dom';
-
+import { useState, useEffect } from "react";
 
 function Welcome() {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+  
+    useEffect(() => {
+      // Fetch data from the server when the component mounts
+      fetch('http://localhost:5000/api/data')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Update state with the data received from the server
+          setData(data);
+        })
+        .catch(error => {
+          // Handle errors
+          setError(error);
+        });
+    }, []); // Empty dependency array ensures the effect runs only once, on mount
     return (
         <Container maxWidth="sm">
             <Typography
