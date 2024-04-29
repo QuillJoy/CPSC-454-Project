@@ -13,6 +13,7 @@ import { ThemeProvider } from './ThemeContext';
 import React, { useContext } from 'react';
 import { ThemeContext } from './ThemeContext';
 import { useEffect } from 'react';
+import DonorSeeAppointments from './comp/donor-see-appointments/DonorSeeAppointments';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/employeesignin" element={<EmployeeSignIn />} />
           <Route path="/donorhome" element={<PrivateRoute Component={DonorHomeWithAppBar} />} />
           <Route path="/donorappointment" element={<PrivateRoute Component={DonorAppointment} />} />
+          <Route path="/donorseeappointments" element={<PrivateRoute Component={DonorSeeAppointmentsWithAppBar} />} />
           <Route path="/employeehome" element={<EmployeeHomeWithAppBar />} />
       </Routes>    
     </ThemeProvider>
@@ -43,6 +45,15 @@ function WelcomeWithAppBar() {
       <Welcome />
     </>
   );
+}
+
+function DonorSeeAppointmentsWithAppBar() {
+  return (
+    <>
+    <AppBar />
+    <DonorSeeAppointments />
+    </>
+  )
 }
 
 function EmployeeHomeWithAppBar() {

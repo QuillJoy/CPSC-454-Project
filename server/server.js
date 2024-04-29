@@ -39,6 +39,27 @@ app.get('/api/getID', (req, res) => {
     });
 });
 
+app.get('/api/getAppointments', (reg, res) => {
+    const sqlQuery = `
+        SELECT * FROM Appointments where FDonorID = ?`;
+    const donorID = reg.query.DonorID;
+
+    db.query(sqlQuery, donorID, (error, results) => {
+        if (error) {
+            console.error('Error executing query: ', error);
+            res.status(500).send('Error executing query');
+            return;
+        }
+
+        if (results.length > 0) {
+            res.json(results);
+        } else {
+            res.status(404).send('No donor found with this id');
+        }
+    });
+
+});
+
 app.post('/api/insertDonor', (req, res) => {
     const { 
         emailAddr, 
@@ -69,7 +90,7 @@ app.post('/api/insertDonor', (req, res) => {
 });
 
 app.post('/api/insertAppointment', (req, res) => {
-    const { DonorID, month, day, year } = req.body;
+    const { donorID, month, day, year } = req.body;
 
     const sqlQuery = `
         INSERT INTO Appointments 
@@ -77,7 +98,7 @@ app.post('/api/insertAppointment', (req, res) => {
         VALUES (?, ?, ?, ?)
     `;
 
-    db.query(sqlQuery, [DonorID, month, day, year], (error, results) => {
+    db.query(sqlQuery, [donorID, month, day, year], (error, results) => {
         if (error) {
             console.error('Error executing query: ', error);
             res.status(500).send('Error executing query');

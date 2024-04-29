@@ -19,10 +19,7 @@ function DonorHome() {
                     <Button variant='contained' color='primary'  component={Link} to="/donorappointment">Schedule Appointment</Button>
                 </Grid>
                 <Grid item>
-                    <Button variant='contained' color='primary'>See Existing Appointments</Button>
-                </Grid>
-                <Grid item>
-                    <Button variant='contained' color='primary'>See Past Donations</Button>
+                    <Button variant='contained' color='primary' component={Link} to="/donorseeappointments">See Existing Appointments</Button>
                 </Grid>
             </Grid>
         </Container>

@@ -39,41 +39,39 @@ export default function DonorAppointment() {
       if (response.ok) {
         const data = await response.json();
         donorID = data;
-        console.log('DonorID:', data); 
+        console.log(donorID)
+        try {
+          const response = await fetch('http://localhost:5000/api/insertAppointment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+              donorID, 
+              month, 
+              day,
+              year
+            })
+          });
+      
+          const data = await response.json();
+      
+          if (response.ok) {
+            alert(data.message);
+            navigate('/donorhome');
+          } else {
+            alert(data.message);
+            navigate('/');
+          }
+        } catch (error) {
+          console.error('Error sending the insert request', error);
+        }
       } else {
         console.error('Response:', response.statusText);
       }
     } catch (error) {
       console.error('Error:', error);
     }
-
-    try {
-      const response = await fetch('http://localhost:5000/api/insertAppointment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          month, 
-          day, 
-          year,
-          donorID
-        })
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        alert(data.message);
-        navigate('/donorhome');
-      } else {
-        alert(data.message);
-        navigate('/');
-      }
-    } catch (error) {
-      console.error('Error sending the insert request', error);
-    }
-
 
   };
 
