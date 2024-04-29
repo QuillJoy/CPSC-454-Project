@@ -60,6 +60,26 @@ app.get('/api/getAppointments', (reg, res) => {
 
 });
 
+app.get('/api/getDonors', (reg, res) => {
+    const sqlQuery = `
+        SELECT * FROM Donors`;
+
+    db.query(sqlQuery, (error, results) => {
+        if (error) {
+            console.error('Error executing query: ', error);
+            res.status(500).send('Error executing query');
+            return;
+        }
+
+        if (results.length > 0) {
+            res.json(results);
+        } else {
+            res.status(404).send('err');
+        }
+    });
+
+});
+
 app.post('/api/insertDonor', (req, res) => {
     const { 
         emailAddr, 

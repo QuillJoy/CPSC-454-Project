@@ -14,6 +14,7 @@ import React, { useContext } from 'react';
 import { ThemeContext } from './ThemeContext';
 import { useEffect } from 'react';
 import DonorSeeAppointments from './comp/donor-see-appointments/DonorSeeAppointments';
+import EmployeeSeeDonors from './comp/employee-see-donors/EmployeeSeeDonors';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/donorhome" element={<PrivateRoute Component={DonorHomeWithAppBar} />} />
           <Route path="/donorappointment" element={<PrivateRoute Component={DonorAppointment} />} />
           <Route path="/donorseeappointments" element={<PrivateRoute Component={DonorSeeAppointmentsWithAppBar} />} />
+          <Route path="/employeeseedonors" element={<PrivateRoute Component={EmployeeSeeDonorsWithAppBar} />} />
           <Route path="/employeehome" element={<EmployeeHomeWithAppBar />} />
       </Routes>    
     </ThemeProvider>
@@ -52,6 +54,15 @@ function DonorSeeAppointmentsWithAppBar() {
     <>
     <AppBar />
     <DonorSeeAppointments />
+    </>
+  )
+}
+
+function EmployeeSeeDonorsWithAppBar() {
+  return (
+    <>
+    <AppBar />
+    <EmployeeSeeDonors />
     </>
   )
 }
