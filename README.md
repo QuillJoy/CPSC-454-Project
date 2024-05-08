@@ -1,14 +1,26 @@
 # CPSC 454 Project: Blood Bank
 
 ## Overview
-This repository details a React project using Express API to communicate with a MYSQL database sitting in a virtual machine to act as a microservice.
+This repository details a React project using Express API to communicate with a MYSQL database sitting in a virtual machine to act as a database microservice
+and a webapp running in another virtual machine.
 
 ## How to Run
-1. Create a virtual machine that uses the Bridged Adapter for its network adapter. Install mysql and run the commands in database/schema.sql to create the database. Make sure the bind-address setting in my.cnf is set to 0.0.0.0 . To verify the IP address, do 'ifconfig' in the virtual machine terminal to record the VM's IP. Then on the host machine, ping that IP to ensure network connectivity. Make sure the VM is set to use the Bridged Adapter.
-2. Go to server/db.js and change the host IP to what you recorded as the VM's IP. For demonstration purposes in class, the IP is 10.67.72.230 .
-3. Go to the root of the server directory and run `node server.js`
-4. Go to the root of the blood-bank-app directory and run `npm install`
-5. In the root of the blood-bank-app directory, run `npm start`
+1. Using VirtualBox, create a virtual machine that uses the Bridged Adapter for its network adapter.
+2. Install git and npm.
+3. Git clone this repository.
+4. Install mysql and run the commands in database/schema.sql to create the database. Make sure the bind-address setting in my.cnf is set to 0.0.0.0.
+5. In mysql, create and authorize a user that can access this database via: 
+`CREATE USER 'Ubuntu' IDENTIFIED BY 'password';`
+`GRANT ALL PRIVILEGES ON bb_db.* TO 'Ubuntu';`
+`ALTER USER 'Ubuntu' IDENTIFIED WITH mysql_native_password BY 'password';`
+`flush privileges`
+7. Create another virtual machine by cloning this machine. Git clone the repository again.
+8. In the VM hosting the datbase, do `ifconfig` to see its IP address.
+9. Paste this address in the host section of db.js in the cloned virtual machine.
+10. To verify the IP address, do 'ifconfig' in the database virtual machine terminal to record the VM's IP. Then on the webapp virtual machine, ping that IP to ensure network connectivity.
+11. Navigate to the root of the server directory in the cloned virtual machine and run `node server.js`.
+12. Navigate to the root of the blood-bank-app directory and run `npm install`.
+13. In the root of the blood-bank-app directory, run `npm start`.
 
 ## Usage Flow for a Donor
 1. Go to Donor Sign Up
