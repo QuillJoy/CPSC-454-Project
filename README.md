@@ -35,3 +35,6 @@ and a webapp running in another virtual machine.
 3. Go to See Donors
 ## Plugin Feature
 1. Email notifications: An email notification plug-in is a feature that sends automated email alerts or notifications based on predefined triggers or events in a system. It’s commonly used to inform donors or administrators about important updates, issues, or actions.
+2. Dark Mode: This project uses the dark mode plugin from react using Tailwind.config.js. It converts to dark mode when clicked providing customization to suit their preferences and environmental conditions.
+
+
