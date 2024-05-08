@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
 function Welcome() {
+  function toggleTheme(){
+    document.documentElement.classList.toggle("dark");
+  }
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
   
@@ -42,6 +45,12 @@ function Welcome() {
                 </Grid>
                 <Grid item>
                     <Button variant="outlined" color="secondary" component={Link} to="/employeesignin">Employee Login</Button>
+                </Grid>
+                <Grid item>
+                  <Button className="absolute bg:black text:white  hover:bg-stone-700" onClick={toggleTheme} variant="outlined" color="secondary">
+                    Dark Mode Plugin
+                  </Button>
+
                 </Grid>
             </Grid>
         </Container>
