@@ -2,10 +2,10 @@ const mysql = require('mysql');
 
 function connectToDatabase() {
     const connection = mysql.createConnection({
-        host: '10.67.72.230',
+        host: '',
         port: '3306',
-        user: 'MSI.lan', 
-        password: 'p1', 
+        user: 'Ubuntu', 
+        password: 'password', 
         database: 'bb_db'
     });
 
