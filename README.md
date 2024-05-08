@@ -33,3 +33,5 @@ and a webapp running in another virtual machine.
 1. Go to employee sign in
 2. Enter 'emp@example.com' and 'password'
 3. Go to See Donors
+## Plugin Feature
+1. Email notifications: An email notification plug-in is a feature that sends automated email alerts or notifications based on predefined triggers or events in a system. It’s commonly used to inform donors or administrators about important updates, issues, or actions.
